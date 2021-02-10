@@ -3,6 +3,7 @@
 #include "Token.h"
 
 #include <iostream>
+#include <stdexcept>
 
 std::vector<Token> Lexer::scanTokens() {
   while (!isAtEnd()) {
@@ -81,6 +82,8 @@ void Lexer::scanToken() {
   default:
     if (isDigit(c)) {
       number();
+    } else if (isAlpha(c)) {
+      identifier();
     } else {
       Lox::report(m_Line, " [column " + std::to_string(m_Current - 1) + "]",
                   "Unexpected charater.");
@@ -94,6 +97,12 @@ bool Lexer::isDigit(char c) {
     return true;
   return false;
 }
+
+bool Lexer::isAlpha(char c) {
+  return (c >= 'a' && c <= 'z') || (c >= 'A' && c <= 'Z') || c == '_';
+}
+
+bool Lexer::isAlphaNumeric(char c) { return isAlpha(c) || isDigit(c); }
 
 char Lexer::advance() {
   m_Current++;
@@ -156,4 +165,19 @@ void Lexer::addToken(TokenType type) { addToken(type, ""); }
 template <typename T> void Lexer::addToken(TokenType type, T literal) {
   std::string text = m_Source.substr(m_Start, m_Current);
   m_Tokens.push_back(Token(type, text, literal, m_Line));
+}
+
+// TODO: two consecuent keywords are not treated like so
+void Lexer::identifier() {
+  while (isAlphaNumeric(peek()))
+    advance();
+
+  std::string text = m_Source.substr(m_Start, m_Current);
+  TokenType type;
+  try {
+    type = m_Keywords.at(text);
+  } catch (const std::out_of_range &e) {
+    type = IDENTIFIER;
+  }
+  addToken(type);
 }
