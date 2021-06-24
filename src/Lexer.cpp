@@ -179,5 +179,5 @@ void Lexer::identifier() {
   } catch (const std::out_of_range &e) {
     type = IDENTIFIER;
   }
-  addToken(type);
+  addToken(type, text);
 }
