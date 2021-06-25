@@ -6,8 +6,12 @@
 
 int main(int argc, char *argv[]) {
   // leaky codeeee yayyyy
-  AstPrinter().print(new Binary(new Literal(10), new Token(PLUS, "+", "", 1),
-                                new Literal(20)));
+  Expr *expression =
+      new Binary(new Unary(new Token(MINUS, "-", "", 1), new Literal(123)),
+                 new Token(STAR, "*", "", 1), new Grouping(new Literal(45)));
+
+  AstPrinter().print(expression);
+
   // if (argc > 2) {
   //   std::cout << "Usage: jlox <script>" << std::endl;
   // } else if (argc == 2) {

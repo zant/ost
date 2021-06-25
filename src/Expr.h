@@ -21,6 +21,16 @@ public:
   std::string accept(Visitor *visitor);
 };
 
+class Unary : public Expr {
+public:
+  Expr *m_Left;
+  Token *m_Op;
+
+public:
+  Unary(Token *op, Expr *left) : m_Left(left), m_Op(op){};
+  std::string accept(Visitor *visitor);
+};
+
 class Literal : public Expr {
 public:
   int m_Value;
@@ -30,8 +40,19 @@ public:
   std::string accept(Visitor *visitor);
 };
 
+class Grouping : public Expr {
+public:
+  Expr *m_Expr;
+
+public:
+  Grouping(Expr *expr) : m_Expr(expr){};
+  std::string accept(Visitor *visitor);
+};
+
 class Visitor {
 public:
   virtual std::string visitBinary(Binary *binary) = 0;
   virtual std::string visitLiteral(Literal *literal) = 0;
+  virtual std::string visitGrouping(Grouping *grouping) = 0;
+  virtual std::string visitUnary(Unary *unary) = 0;
 };
