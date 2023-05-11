@@ -3,6 +3,7 @@
 #include "Token.h"
 #include <string>
 
+// Make visitor class available
 class Visitor;
 class Expr {
 public:
@@ -49,6 +50,8 @@ public:
   std::string accept(Visitor *visitor);
 };
 
+
+// Define Visitor class
 class Visitor {
 public:
   virtual std::string visitBinary(Binary *binary) = 0;
