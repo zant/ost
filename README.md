@@ -1,3 +1,3 @@
 ### ost
 
-A small parser for ost, a toy c-like programming language
+`ost` is a small C-like programming language focused on scripting and ease of use.
