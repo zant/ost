@@ -1,11 +1,11 @@
-#include "Lox.h"
+#include "Ost.h"
 #include "Lexer.h"
 
 #include <fstream>
 #include <iostream>
 #include <sstream>
 
-void Lox::run(std::string source) {
+void Ost::run(std::string source) {
   Lexer lexer = Lexer(source);
   std::vector<Token> tokens = lexer.scanTokens();
 
@@ -14,7 +14,7 @@ void Lox::run(std::string source) {
   }
 }
 
-void Lox::runFile(std::string path) {
+void Ost::runFile(std::string path) {
   std::ifstream stream(path);
   if (!stream.good())
     std::cout << "File not found: " << path << std::endl;
@@ -26,7 +26,7 @@ void Lox::runFile(std::string path) {
     exit(65);
 }
 
-void Lox::runPrompt() {
+void Ost::runPrompt() {
   for (;;) {
     std::cout << "> ";
     std::string line;
@@ -38,9 +38,9 @@ void Lox::runPrompt() {
   }
 }
 
-void Lox::error(int line, std::string message) { report(line, "", message); }
+void Ost::error(int line, std::string message) { report(line, "", message); }
 
-void Lox::report(int line, std::string where, std::string message) {
+void Ost::report(int line, std::string where, std::string message) {
   std::cerr << "[line " << std::to_string(line) << "] Error" << where << ": "
             << message << std::endl;
   hadError = true;

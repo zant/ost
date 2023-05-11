@@ -1,7 +1,7 @@
 #pragma once
 #include <string>
 
-class Lox {
+class Ost {
 public:
   static void runFile(std::string path);
   static void runPrompt();

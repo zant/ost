@@ -1,5 +1,5 @@
 #include "Lexer.h"
-#include "Lox.h"
+#include "Ost.h"
 #include "Token.h"
 
 #include <iostream>
@@ -85,7 +85,7 @@ void Lexer::scanToken() {
     } else if (isAlpha(c)) {
       identifier();
     } else {
-      Lox::report(m_Line, " [column " + std::to_string(m_Current - 1) + "]",
+      Ost::report(m_Line, " [column " + std::to_string(m_Current - 1) + "]",
                   "Unexpected charater.");
     }
     break;
@@ -137,7 +137,7 @@ void Lexer::string() {
     advance();
   }
   if (isAtEnd()) {
-    Lox::error(m_Line, "Unterminated string");
+    Ost::error(m_Line, "Unterminated string");
     return;
   }
   advance();
