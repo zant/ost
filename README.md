@@ -1,3 +1,3 @@
-### lox
+### ost
 
-A small parser for lox, from the Crafting Interpreters book
+A small parser for ost, a toy c-like programming language
