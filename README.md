@@ -1,3 +1,3 @@
 ### lox
 
-a small parser for lox
+a small parser for lox, from the crafting interpreters book
