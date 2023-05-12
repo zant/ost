@@ -7,17 +7,17 @@
 
 struct Lexer
 {
-  Lexer(std::string source) : m_Source(source){};
+  Lexer(std::string source) : source(source){};
   ~Lexer(){};
   std::vector<Token> scanTokens();
 
 private:
-  std::string m_Source;
-  std::vector<Token> m_Tokens{};
-  int m_Start = 0;
-  int m_Current = 0;
-  int m_Line = 0;
-  std::unordered_map<std::string, TokenType> m_Keywords = {
+  std::string source;
+  std::vector<Token> tokens{};
+  int start = 0;
+  int current = 0;
+  int line = 0;
+  std::unordered_map<std::string, TokenType> keywords = {
       {"and", TokenType::AND}, {"class", TokenType::CLASS}, {"else", TokenType::ELSE}, {"false", TokenType::FALSE}, {"for", TokenType::FOR}, {"fun", TokenType::FUN}, {"if", TokenType::IF}, {"nil", TokenType::NIL}, {"or", TokenType::OR}, {"print", TokenType::PRINT}, {"return", TokenType::RETURN}, {"super", TokenType::SUPER}, {"this", TokenType::THIS}, {"true", TokenType::TRUE}, {"var", TokenType::VAR}, {"while", TokenType::WHILE}};
 
 private:
