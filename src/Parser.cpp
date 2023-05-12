@@ -1,14 +1,30 @@
-#pragma once
+#include "Parser.h"
 
-#include "Expr.h"
-#include <string>
+// Expr Parser::expression() {
+//   return this->equality();
+// }
 
-class Parser : Visitor
-{
-public:
-  void parse(Expr *expr){};
-  std::string visitBinary(Binary *binary){};
-  std::string visitUnary(Unary *unary){};
-  std::string visitLiteral(Literal *literal){};
-  std::string visitGrouping(Grouping *grouping){};
-};
+// Expr Parser::equality() {
+//   return this->comparison();
+// }
+
+// Expr Parser::comparison() {
+//   return this->term();
+// }
+
+// Expr Parser::term() {
+//   return this->factor();
+// }
+
+// Expr Parser::factor() {
+//   return this->unary();
+// }
+
+// Expr Parser::unary() {
+//   return this->primary();
+// }
+
+Literal Parser::primary() {
+  Literal e(1);
+  return e;
+}

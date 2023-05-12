@@ -3,19 +3,14 @@
 #include <iostream>
 #include <memory>
 #include <string>
+#include <cstddef>
+#include "magic_enum.hpp"
 
-int main(int argc, char *argv[]) {
-  Expr *expression =
-      new Binary(new Unary(new Token(MINUS, "-", "", 1), new Literal(123)),
-                 new Token(STAR, "*", "", 1), new Grouping(new Literal(45)));
-
-  AstPrinter().print(expression);
-
-  // if (argc > 2) {
-  //   std::cout << "Usage: ostt <script>" << std::endl;
-  // } else if (argc == 2) {
-  //   Ost::runFile(argv[1]);
-  // } else {
-  //   Ost::runPrompt();
-  // }
+int main(int argc, char *argv[])
+{
+  Token t{TokenType::PLUS, "+", "", 1};
+  Literal l{1};
+  Binary b{&l, &t, &l};
+  auto printer = AstPrinter{};
+  printer.print(&b);
 }

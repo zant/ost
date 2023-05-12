@@ -10,8 +10,7 @@ std::vector<Token> Lexer::scanTokens() {
     m_Start = m_Current;
     scanToken();
   }
-  m_Tokens.push_back(Token(LEOF, "", "", m_Line));
-  return m_Tokens;
+  m_Tokens.push_back(Token(TokenType::LEOF, "", "", m_Line));
 }
 
 bool Lexer::isAtEnd() { return m_Current >= m_Source.length(); }
@@ -20,53 +19,53 @@ void Lexer::scanToken() {
   char c = advance();
   switch (c) {
   case '(':
-    addToken(LEFT_PAREN);
+    addToken(TokenType::LEFT_PAREN);
     break;
   case ')':
-    addToken(RIGHT_PAREN);
+    addToken(TokenType::RIGHT_PAREN);
     break;
   case '{':
-    addToken(LEFT_BRACE);
+    addToken(TokenType::LEFT_BRACE);
     break;
   case '}':
-    addToken(RIGHT_BRACE);
+    addToken(TokenType::RIGHT_BRACE);
     break;
   case ',':
-    addToken(COMMA);
+    addToken(TokenType::COMMA);
     break;
   case '.':
-    addToken(DOT);
+    addToken(TokenType::DOT);
     break;
   case '-':
-    addToken(MINUS);
+    addToken(TokenType::MINUS);
     break;
   case '+':
-    addToken(PLUS);
+    addToken(TokenType::PLUS);
     break;
   case ';':
-    addToken(SEMICOLON);
+    addToken(TokenType::SEMICOLON);
     break;
   case '*':
-    addToken(STAR);
+    addToken(TokenType::STAR);
     break;
   case '!':
-    addToken(match('=') ? BANG_EQUAL : BANG);
+    addToken(match('=') ? TokenType::BANG_EQUAL : TokenType::BANG);
     break;
   case '=':
-    addToken(match('=') ? EQUAL_EQUAL : EQUAL);
+    addToken(match('=') ? TokenType::EQUAL_EQUAL : TokenType::EQUAL);
     break;
   case '<':
-    addToken(match('=') ? LESS_EQUAL : LESS);
+    addToken(match('=') ? TokenType::LESS_EQUAL : TokenType::LESS);
     break;
   case '>':
-    addToken(match('=') ? GREATER_EQUAL : GREATER);
+    addToken(match('=') ? TokenType::GREATER_EQUAL : TokenType::GREATER);
     break;
   case '/':
     if (match('/')) {
       while (peek() != '\n' && !isAtEnd())
         advance();
     } else {
-      addToken(SLASH);
+      addToken(TokenType::SLASH);
     }
     break;
   case ' ':
@@ -143,7 +142,7 @@ void Lexer::string() {
   advance();
 
   std::string value = m_Source.substr(m_Start + 1, m_Current - 1);
-  addToken(STRING, value);
+  addToken(TokenType::STRING, value);
 }
 
 void Lexer::number() {
@@ -157,7 +156,7 @@ void Lexer::number() {
   }
 
   double value = std::stod(m_Source.substr(m_Start, m_Current));
-  addToken(NUMBER, value);
+  addToken(TokenType::NUMBER, value);
 }
 
 void Lexer::addToken(TokenType type) { addToken(type, ""); }
@@ -177,7 +176,7 @@ void Lexer::identifier() {
   try {
     type = m_Keywords.at(text);
   } catch (const std::out_of_range &e) {
-    type = IDENTIFIER;
+    type = TokenType::IDENTIFIER;
   }
   addToken(type, text);
 }

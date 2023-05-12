@@ -5,7 +5,8 @@
 
 #include "Token.h"
 
-class Lexer {
+class Lexer
+{
 private:
   std::string m_Source;
   std::vector<Token> m_Tokens{};
@@ -13,10 +14,7 @@ private:
   int m_Current = 0;
   int m_Line = 0;
   std::unordered_map<std::string, TokenType> m_Keywords = {
-      {"and", AND},   {"class", CLASS}, {"else", ELSE},     {"false", FALSE},
-      {"for", FOR},   {"fun", FUN},     {"if", IF},         {"nil", NIL},
-      {"or", OR},     {"print", PRINT}, {"return", RETURN}, {"super", SUPER},
-      {"this", THIS}, {"true", TRUE},   {"var", VAR},       {"while", WHILE}};
+      {"and", TokenType::AND}, {"class", TokenType::CLASS}, {"else", TokenType::ELSE}, {"false", TokenType::FALSE}, {"for", TokenType::FOR}, {"fun", TokenType::FUN}, {"if", TokenType::IF}, {"nil", TokenType::NIL}, {"or", TokenType::OR}, {"print", TokenType::PRINT}, {"return", TokenType::RETURN}, {"super", TokenType::SUPER}, {"this", TokenType::THIS}, {"true", TokenType::TRUE}, {"var", TokenType::VAR}, {"while", TokenType::WHILE}};
 
 private:
   bool isAtEnd();
@@ -33,7 +31,8 @@ private:
   bool isAlphaNumeric(char c);
   void identifier();
 
-  template <typename T> void addToken(TokenType type, T literal);
+  template <typename T>
+  void addToken(TokenType type, T literal);
 
 public:
   Lexer(std::string source) : m_Source(source){};

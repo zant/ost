@@ -2,13 +2,24 @@
 
 #include "Expr.h"
 #include <string>
+#include <vector>
 
-class Parser : Visitor
+class Parser
 {
+private:
+  std::vector<Token> m_Tokens{};
+  // int m_Current = 0;
+
+private:
+  // Expr expression();
+  // Expr equality();
+  // Expr comparison();
+  // Expr term();
+  // Expr factor();
+  // Expr unary();
+  Literal primary();
+
 public:
-  void parse(Expr *expr);
-  std::string visitBinary(Binary *binary);
-  std::string visitLiteral(Literal *literal);
-  std::string visitUnary(Unary *unary);
-  std::string visitGrouping(Grouping *grouping);
+  Parser(std::vector<Token> tokens) : m_Tokens(tokens){};
+  ~Parser(){};
 };

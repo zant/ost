@@ -4,13 +4,13 @@
 #include <string>
 
 // Make visitor class available
-class Visitor;
-class Expr {
+struct Visitor;
+struct Expr {
 public:
   virtual std::string accept(Visitor *visitor) = 0;
 };
 
-class Binary : public Expr {
+struct Binary : public Expr {
 public:
   Expr *m_Left;
   Token *m_Op;
@@ -22,7 +22,7 @@ public:
   std::string accept(Visitor *visitor);
 };
 
-class Unary : public Expr {
+struct Unary : public Expr {
 public:
   Expr *m_Left;
   Token *m_Op;
@@ -41,7 +41,7 @@ public:
   std::string accept(Visitor *visitor);
 };
 
-class Grouping : public Expr {
+struct Grouping : public Expr {
 public:
   Expr *m_Expr;
 
@@ -52,7 +52,7 @@ public:
 
 
 // Define Visitor class
-class Visitor {
+struct Visitor {
 public:
   virtual std::string visitBinary(Binary *binary) = 0;
   virtual std::string visitLiteral(Literal *literal) = 0;
