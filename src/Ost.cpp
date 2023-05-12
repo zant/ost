@@ -16,7 +16,7 @@ void Ost::run(std::string source) {
   }
 }
 
-void Ost::runFile(std::string path) {
+void Ost::run_file(std::string path) {
   std::ifstream stream(path);
   if (!stream.good())
     std::cout << "File not found: " << path << std::endl;
@@ -28,7 +28,7 @@ void Ost::runFile(std::string path) {
     exit(65);
 }
 
-void Ost::runPrompt() {
+void Ost::run_prompt() {
   for (;;) {
     std::cout << "> ";
     std::string line;

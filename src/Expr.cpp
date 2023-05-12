@@ -2,20 +2,20 @@
 
 std::string Binary::accept(Visitor *visitor)
 {
-  return visitor->visitBinary(this);
+  return visitor->visit_binary(this);
 }
 
 std::string Literal::accept(Visitor *visitor)
 {
-  return visitor->visitLiteral(this);
+  return visitor->visit_literal(this);
 }
 
 std::string Unary::accept(Visitor *visitor)
 {
-  return visitor->visitUnary(this);
+  return visitor->visit_unary(this);
 }
 
 std::string Grouping::accept(Visitor *visitor)
 {
-  return visitor->visitGrouping(this);
+  return visitor->visit_grouping(this);
 }

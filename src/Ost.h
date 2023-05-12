@@ -5,8 +5,8 @@ struct Ost
 {
   inline static bool had_error = false;
 
-  static void runFile(std::string path);
-  static void runPrompt();
+  static void run_file(std::string path);
+  static void run_prompt();
   static void error(int line, std::string message);
   static void report(int line, std::string where, std::string message);
 

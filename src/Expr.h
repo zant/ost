@@ -51,8 +51,8 @@ struct Grouping : public Expr
 // Define Visitor class
 struct Visitor
 {
-  virtual std::string visitBinary(Binary *binary) = 0;
-  virtual std::string visitLiteral(Literal *literal) = 0;
-  virtual std::string visitGrouping(Grouping *grouping) = 0;
-  virtual std::string visitUnary(Unary *unary) = 0;
+  virtual std::string visit_binary(Binary *binary) = 0;
+  virtual std::string visit_literal(Literal *literal) = 0;
+  virtual std::string visit_grouping(Grouping *grouping) = 0;
+  virtual std::string visit_unary(Unary *unary) = 0;
 };

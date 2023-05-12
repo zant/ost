@@ -6,11 +6,11 @@
 
 struct Parser
 {
-  Parser(std::vector<Token> tokens) : m_Tokens(tokens){};
+  Parser(std::vector<Token> tokens) : tokens(tokens){};
   ~Parser(){};
 
 private:
-  std::vector<Token> m_Tokens{};
+  std::vector<Token> tokens{};
   // int m_Current = 0;
 
 private:

@@ -30,22 +30,22 @@ void AstPrinter::print(Expr *expr)
   fmt::println(expr->accept(this));
 };
 
-std::string AstPrinter::visitBinary(Binary *binary)
+std::string AstPrinter::visit_binary(Binary *binary)
 {
   return parenthesize(binary->op->lexeme, binary->left, binary->right);
 };
 
-std::string AstPrinter::visitLiteral(Literal *literal)
+std::string AstPrinter::visit_literal(Literal *literal)
 {
   return std::to_string(literal->value);
 };
 
-std::string AstPrinter::visitUnary(Unary *unary)
+std::string AstPrinter::visit_unary(Unary *unary)
 {
   return parenthesize(unary->op->lexeme, unary->left);
 };
 
-std::string AstPrinter::visitGrouping(Grouping *grouping)
+std::string AstPrinter::visit_grouping(Grouping *grouping)
 {
   return parenthesize("grouping", grouping->expr);
 };

@@ -6,7 +6,7 @@
 
 int main(int argc, char *argv[])
 {
-  std::shared_ptr<Token> t{new Token{TokenType::PLUS, "+", "", 1}};
+  std::shared_ptr<Token> t{new Token{TokenType::Star, "*", "", 1}};
   std::shared_ptr<Literal> l{new Literal{1}};
   std::shared_ptr<Literal> l2{new Literal{1}};
   Binary b{l, t, l};
