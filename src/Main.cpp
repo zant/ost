@@ -1,9 +1,8 @@
-#include "AstPrinter.h"
 #include "Ost.h"
+#include "AstPrinter.h"
 #include <iostream>
 #include <memory>
 #include <string>
-#include <cstddef>
 
 int main(int argc, char *argv[])
 {
