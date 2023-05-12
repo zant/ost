@@ -17,3 +17,6 @@ include_directories(${PROJECT_SOURCE_DIR}/include/magic_enum)
 
 add_subdirectory(include/fmt EXCLUDE_FROM_ALL)
 target_link_libraries(main fmt::fmt)
+
+add_subdirectory(include/magic_enum EXCLUDE_FROM_ALL)
+target_link_libraries(main magic_enum)
