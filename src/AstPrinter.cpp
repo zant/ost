@@ -1,18 +1,23 @@
 #include "AstPrinter.h"
 #include <iostream>
+#include <fmt/core.h>
 
 std::string AstPrinter::accept() { return ""; }
 
-template <typename T> std::string AstPrinter::accept(T arg) {
+template <typename T>
+std::string AstPrinter::accept(T arg)
+{
   return " " + arg->accept(this);
 }
 
 template <typename T, typename... Args>
 std::string AstPrinter::parenthesize(std::string lexeme, T first,
-                                     Args... args) {
+                                     Args... args)
+{
 
   std::string text = "(" + lexeme;
-  if (lexeme == "grouping") {
+  if (lexeme == "grouping")
+  {
     text = "(group ";
   }
 
@@ -20,22 +25,27 @@ std::string AstPrinter::parenthesize(std::string lexeme, T first,
   return text;
 };
 
-void AstPrinter::print(Expr *expr) {
-  std::cout << expr->accept(this) << std::endl;
+void AstPrinter::print(Expr *expr)
+{
+  fmt::println(expr->accept(this));
 };
 
-std::string AstPrinter::visitBinary(Binary *binary) {
-  return parenthesize(binary->m_Op->lexeme, binary->m_Left, binary->m_Right);
+std::string AstPrinter::visitBinary(Binary *binary)
+{
+  return parenthesize(binary->op->lexeme, binary->left, binary->right);
 };
 
-std::string AstPrinter::visitLiteral(Literal *literal) {
-  return std::to_string(literal->m_Value);
+std::string AstPrinter::visitLiteral(Literal *literal)
+{
+  return std::to_string(literal->value);
 };
 
-std::string AstPrinter::visitUnary(Unary *unary) {
-  return parenthesize(unary->m_Op->lexeme, unary->m_Left);
+std::string AstPrinter::visitUnary(Unary *unary)
+{
+  return parenthesize(unary->op->lexeme, unary->left);
 };
 
-std::string AstPrinter::visitGrouping(Grouping *grouping) {
-  return parenthesize("grouping", grouping->m_Expr);
+std::string AstPrinter::visitGrouping(Grouping *grouping)
+{
+  return parenthesize("grouping", grouping->expr);
 };
