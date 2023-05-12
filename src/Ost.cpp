@@ -4,13 +4,15 @@
 #include <fstream>
 #include <iostream>
 #include <sstream>
+#include <string>
+#include "magic_enum.hpp"
 
 void Ost::run(std::string source) {
   Lexer lexer = Lexer(source);
   std::vector<Token> tokens = lexer.scanTokens();
 
   for (Token &token : tokens) {
-    std::cout << token.type << std::endl;
+    std::cout << magic_enum::enum_name(token.type) << std::endl;
   }
 }
 

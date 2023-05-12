@@ -2,6 +2,9 @@
 cmake_minimum_required (VERSION 3.1)
 project (ost)
 
+# Libs
+include_directories(${PROJECT_SOURCE_DIR}/include/magic_enum)
+
 file(GLOB ROOT_SOURCE ${PROJECT_SOURCE_DIR}/src/*.cpp)
 file(GLOB ROOT_HEADER ${PROJECT_SOURCE_DIR}/src/*.h)
 
