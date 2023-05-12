@@ -3,7 +3,8 @@
 #include <string>
 #include <variant>
 
-enum class TokenType {
+enum class TokenType
+{
   // Single char tokens
   LEFT_PAREN,
   RIGHT_PAREN,
@@ -53,17 +54,16 @@ enum class TokenType {
   LEOF,
 };
 
-class Token {
-public:
+struct Token
+{
+  TokenType type;
+  std::string lexeme;
+  std::variant<std::string, double> literal;
+  int line;
+
   Token(TokenType type, std::string lexeme, std::string literal, int line)
       : type(type), lexeme(lexeme), literal(literal), line(line){};
   Token(TokenType type, std::string lexeme, double literal, int line)
       : type(type), lexeme(lexeme), literal(literal), line(line){};
   std::string toString() { return lexeme + " " + std::to_string(line); }
-
-public:
-  TokenType type;
-  std::string lexeme;
-  std::variant<std::string, double> literal;
-  int line;
 };

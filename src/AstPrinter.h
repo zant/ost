@@ -3,9 +3,8 @@
 #include "Expr.h"
 #include <string>
 
-class AstPrinter : Visitor
+struct AstPrinter : Visitor
 {
-public:
   void print(Expr *expr);
   std::string visitBinary(Binary *binary);
   std::string visitLiteral(Literal *literal);

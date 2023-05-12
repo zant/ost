@@ -4,7 +4,6 @@
 #include <memory>
 #include <string>
 #include <cstddef>
-#include "magic_enum.hpp"
 
 int main(int argc, char *argv[])
 {

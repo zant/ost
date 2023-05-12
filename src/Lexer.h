@@ -5,8 +5,12 @@
 
 #include "Token.h"
 
-class Lexer
+struct Lexer
 {
+  Lexer(std::string source) : m_Source(source){};
+  ~Lexer(){};
+  std::vector<Token> scanTokens();
+
 private:
   std::string m_Source;
   std::vector<Token> m_Tokens{};
@@ -33,9 +37,4 @@ private:
 
   template <typename T>
   void addToken(TokenType type, T literal);
-
-public:
-  Lexer(std::string source) : m_Source(source){};
-  ~Lexer(){};
-  std::vector<Token> scanTokens();
 };

@@ -4,8 +4,11 @@
 #include <string>
 #include <vector>
 
-class Parser
+struct Parser
 {
+  Parser(std::vector<Token> tokens) : m_Tokens(tokens){};
+  ~Parser(){};
+
 private:
   std::vector<Token> m_Tokens{};
   // int m_Current = 0;
@@ -18,8 +21,4 @@ private:
   // Expr factor();
   // Expr unary();
   Literal primary();
-
-public:
-  Parser(std::vector<Token> tokens) : m_Tokens(tokens){};
-  ~Parser(){};
 };

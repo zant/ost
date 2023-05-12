@@ -1,8 +1,10 @@
 #pragma once
 #include <string>
 
-class Ost {
-public:
+struct Ost
+{
+  inline static bool hadError = false;
+
   static void runFile(std::string path);
   static void runPrompt();
   static void error(int line, std::string message);
@@ -10,7 +12,4 @@ public:
 
 private:
   static void run(std::string file);
-
-public:
-  inline static bool hadError = false;
 };
