@@ -24,7 +24,7 @@ void Ost::runFile(std::string path) {
   std::stringstream sstr;
   sstr << stream.rdbuf();
   run(sstr.str());
-  if (hadError)
+  if (had_error)
     exit(65);
 }
 
@@ -36,7 +36,7 @@ void Ost::runPrompt() {
     if (line.empty())
       break;
     run(line);
-    hadError = false;
+    had_error = false;
   }
 }
 
@@ -45,5 +45,5 @@ void Ost::error(int line, std::string message) { report(line, "", message); }
 void Ost::report(int line, std::string where, std::string message) {
   std::cerr << "[line " << std::to_string(line) << "] Error" << where << ": "
             << message << std::endl;
-  hadError = true;
+  had_error = true;
 }

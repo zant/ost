@@ -3,7 +3,7 @@
 
 struct Ost
 {
-  inline static bool hadError = false;
+  inline static bool had_error = false;
 
   static void runFile(std::string path);
   static void runPrompt();
