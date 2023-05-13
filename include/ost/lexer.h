@@ -3,7 +3,7 @@
 #include <unordered_map>
 #include <vector>
 
-#include "Token.h"
+#include "ost/token.h"
 
 struct Lexer
 {

@@ -1,6 +1,6 @@
 #pragma once
 
-#include "Token.h"
+#include "ost/token.h"
 #include <string>
 #include <fmt/core.h>
 

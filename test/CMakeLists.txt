@@ -11,7 +11,7 @@ if (BUILD_TESTS)
   set_property(TARGET tests PROPERTY CXX_STANDARD 20)
   target_compile_options(tests PRIVATE -Wall)
 
-  target_include_directories(tests PRIVATE ${PROJECT_SOURCE_DIR}/src)
+  target_include_directories(tests PRIVATE ${PROJECT_SOURCE_DIR}/include)
   target_link_libraries(tests PRIVATE Catch2::Catch2WithMain)
   target_link_libraries(tests PRIVATE ost)
 endif()

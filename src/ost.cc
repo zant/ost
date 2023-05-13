@@ -1,5 +1,5 @@
-#include "Ost.h"
-#include "Lexer.h"
+#include "ost/ost.h"
+#include "ost/lexer.h"
 
 #include <fstream>
 #include <iostream>

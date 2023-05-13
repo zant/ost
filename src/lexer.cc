@@ -1,6 +1,6 @@
-#include "Lexer.h"
-#include "Ost.h"
-#include "Token.h"
+#include "ost/lexer.h"
+#include "ost/ost.h"
+#include "ost/token.h"
 
 #include <iostream>
 #include <stdexcept>

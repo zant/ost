@@ -1,8 +1,8 @@
-[submodule "include/fmt"]
-	path = include/fmt
+[submodule "lib/fmt"]
+	path = lib/fmt
 	url = git@github.com:fmtlib/fmt.git
-[submodule "include/magic_enum"]
-	path = include/magic_enum
+[submodule "lib/magic_enum"]
+	path = lib/magic_enum
 	url = git@github.com:Neargye/magic_enum.git
 [submodule "test/include/Catch2"]
 	path = test/include/Catch2

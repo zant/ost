@@ -1,5 +1,5 @@
 #include <catch2/catch_test_macros.hpp>
-#include "AstPrinter.h"
+#include "ost/ast_printer.h"
 #include <iostream>
 
 TEST_CASE("Returns formatted", "[formated]")

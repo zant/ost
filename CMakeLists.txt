@@ -4,19 +4,20 @@ project (ost)
 
 add_subdirectory(test)
 
-file(GLOB ROOT_SOURCE ${PROJECT_SOURCE_DIR}/src/*.cpp)
-file(GLOB ROOT_HEADER ${PROJECT_SOURCE_DIR}/src/*.h)
+file(GLOB ROOT_SOURCE ${PROJECT_SOURCE_DIR}/src/*.cc)
 
 # Create a library from your source files
-add_library(ost ${ROOT_SOURCE} ${ROOT_HEADER})
+add_library(ost ${ROOT_SOURCE})
+
+target_include_directories(ost PUBLIC ${PROJECT_SOURCE_DIR}/include)
 
 set_property(TARGET ost PROPERTY CXX_STANDARD 20)
 target_compile_options(ost PRIVATE -Wall)
 
-add_subdirectory(include/fmt EXCLUDE_FROM_ALL)
+add_subdirectory(lib/fmt EXCLUDE_FROM_ALL)
 target_link_libraries(ost fmt::fmt)
 
-add_subdirectory(include/magic_enum EXCLUDE_FROM_ALL)
+add_subdirectory(lib/magic_enum EXCLUDE_FROM_ALL)
 target_link_libraries(ost magic_enum)
 
 # The main executable
