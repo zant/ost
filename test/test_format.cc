@@ -1,6 +1,5 @@
 #include <catch2/catch_test_macros.hpp>
 #include "ost/ast_printer.h"
-#include <iostream>
 
 TEST_CASE("Returns formatted", "[formated]")
 {
@@ -12,5 +11,6 @@ TEST_CASE("Returns formatted", "[formated]")
 
     AstPrinter printer{};
     auto str = printer.format(b);
+
     REQUIRE(str == "(* (* 1 1) 2)");
 }
