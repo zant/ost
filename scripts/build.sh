@@ -2,4 +2,4 @@
 mkdir -p -- build
 cd build
 cmake -GNinja ..
-ninja && ./main $1
+ninja

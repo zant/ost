@@ -25,9 +25,9 @@ std::string AstPrinter::parenthesize(std::string lexeme, T first,
   return text;
 };
 
-void AstPrinter::print(Expr *expr)
+std::string AstPrinter::format(Expr *expr)
 {
-  fmt::println(expr->accept(this));
+  return expr->accept(this);
 };
 
 std::string AstPrinter::visit_binary(Binary *binary)
