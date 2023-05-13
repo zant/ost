@@ -5,7 +5,7 @@ option(BUILD_TESTS "Build the tests" OFF)
 file(GLOB ROOT_SOURCE ${PROJECT_SOURCE_DIR}/test/*.cc)
 
 if (BUILD_TESTS)
-  add_subdirectory(include/Catch2)
+  add_subdirectory(lib/Catch2)
   add_executable(tests ${ROOT_SOURCE})
 
   set_property(TARGET tests PROPERTY CXX_STANDARD 20)
