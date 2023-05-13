@@ -1,5 +1,5 @@
 #!/bin/sh -x
-mkdir -p -- build
+mkdir -p build
 cd build
 cmake -GNinja ..
 ninja
