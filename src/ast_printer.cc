@@ -1,6 +1,19 @@
 #include "ost/ast_printer.h"
 #include <iostream>
 #include <fmt/core.h>
+#include <fmt/color.h>
+
+void AstPrinter::print(Expr *expr)
+{
+  fmt::print(fg(fmt::color::royal_blue) | fmt::emphasis::bold, "Compiled successfully: \n");
+  fmt::println("{}", expr->accept(this));
+}
+
+std::string AstPrinter::format(Expr *expr)
+{
+  auto str = expr->accept(this);
+  return str;
+};
 
 std::string AstPrinter::accept() { return ""; }
 
@@ -23,11 +36,6 @@ std::string AstPrinter::parenthesize(std::string lexeme, T first,
 
   text = text + this->accept(first) + this->accept(args...) + ")";
   return text;
-};
-
-std::string AstPrinter::format(Expr *expr)
-{
-  return expr->accept(this);
 };
 
 std::string AstPrinter::visit_binary(Binary *binary)

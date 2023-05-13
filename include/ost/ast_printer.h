@@ -5,6 +5,7 @@
 
 struct AstPrinter : Visitor
 {
+  void print(Expr *expr);
   std::string format(Expr *expr);
   std::string visit_binary(Binary *binary);
   std::string visit_literal(Literal *literal);
