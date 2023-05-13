@@ -7,8 +7,8 @@
 
 struct Lexer
 {
-  Lexer(std::string source) : source(source){};
-  ~Lexer(){};
+  Lexer(std::string source) : source(source){}
+  ~Lexer(){}
   std::vector<Token> scanTokens();
 
 private:

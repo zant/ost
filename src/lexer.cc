@@ -2,9 +2,6 @@
 #include "ost/ost.h"
 #include "ost/token.h"
 
-#include <iostream>
-#include <stdexcept>
-
 std::vector<Token> Lexer::scanTokens()
 {
   while (!isAtEnd())
@@ -16,7 +13,7 @@ std::vector<Token> Lexer::scanTokens()
   return tokens;
 }
 
-bool Lexer::isAtEnd() { return current >= source.length(); }
+bool Lexer::isAtEnd() { return static_cast<size_t>(current) >= source.length(); }
 
 void Lexer::scanToken()
 {
@@ -143,7 +140,7 @@ char Lexer::peek()
 
 char Lexer::peekNext()
 {
-  if (current + 1 >= source.length())
+  if (static_cast<size_t>(current + 1) >= source.length())
     return '\0';
   return source[current + 1];
 }

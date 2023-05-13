@@ -6,8 +6,8 @@
 
 struct Parser
 {
-  Parser(std::vector<Token> tokens) : tokens(tokens){};
-  ~Parser(){};
+  Parser(std::vector<Token> tokens) : tokens(tokens) {}
+  ~Parser() {}
 
 private:
   std::vector<Token> tokens{};
