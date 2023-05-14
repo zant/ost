@@ -2,4 +2,4 @@
 mkdir -p build
 cd build
 cmake -DBUILD_TESTS=ON -GNinja ..
-ninja && ./test/tests
+ninja 

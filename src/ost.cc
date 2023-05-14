@@ -9,7 +9,7 @@
 
 void Ost::run(std::string source) {
   Lexer lexer = Lexer(source);
-  std::vector<Token> tokens = lexer.scanTokens();
+  std::vector<Token> tokens = lexer.scan_tokens();
 
   for (Token &token : tokens) {
     std::cout << magic_enum::enum_name(token.type) << std::endl;

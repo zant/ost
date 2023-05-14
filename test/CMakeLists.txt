@@ -9,7 +9,7 @@ if (BUILD_TESTS)
   add_executable(tests ${ROOT_SOURCE})
 
   set_property(TARGET tests PROPERTY CXX_STANDARD 20)
-  target_compile_options(tests PRIVATE -Wall)
+  target_compile_options(tests PRIVATE -Wall -g)
 
   target_include_directories(tests PRIVATE ${PROJECT_SOURCE_DIR}/include)
   target_link_libraries(tests PRIVATE Catch2::Catch2WithMain)

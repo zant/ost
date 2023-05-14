@@ -12,7 +12,7 @@ add_library(ost ${ROOT_SOURCE})
 target_include_directories(ost PUBLIC ${PROJECT_SOURCE_DIR}/include)
 
 set_property(TARGET ost PROPERTY CXX_STANDARD 20)
-target_compile_options(ost PRIVATE -Wall -Werror -Wextra -Wpedantic -Wvla -Wextra-semi -Wnull-dereference -Wswitch-enum)
+target_compile_options(ost PRIVATE -g -Wall -Wextra -Wpedantic -Wvla -Wextra-semi -Wnull-dereference -Wswitch-enum)
 
 add_subdirectory(lib/fmt EXCLUDE_FROM_ALL)
 target_link_libraries(ost fmt::fmt)

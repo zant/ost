@@ -3,7 +3,7 @@
 std::string Binary::accept(Visitor *visitor)
 {
   return visitor->visit_binary(this);
-};
+}
 
 std::string Literal::accept(Visitor *visitor)
 {

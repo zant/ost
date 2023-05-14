@@ -7,9 +7,10 @@
 
 struct Lexer
 {
-  Lexer(std::string source) : source(source){}
-  ~Lexer(){}
-  std::vector<Token> scanTokens();
+  Lexer(std::string source) : source(source) {}
+  ~Lexer() {}
+  std::vector<Token> scan_tokens();
+  // std::vector<Token> scanTokens();
 
 private:
   std::string source;
@@ -18,23 +19,66 @@ private:
   int current = 0;
   int line = 0;
   std::unordered_map<std::string, TokenType> keywords = {
-      {"and", TokenType::And}, {"class", TokenType::Class}, {"else", TokenType::Else}, {"false", TokenType::False}, {"for", TokenType::For}, {"function", TokenType::Function}, {"if", TokenType::If}, {"nil", TokenType::Nil}, {"or", TokenType::Or}, {"print", TokenType::Print}, {"return", TokenType::Return}, {"super", TokenType::Super}, {"this", TokenType::This}, {"true", TokenType::True}, {"var", TokenType::Var}, {"while", TokenType::While}};
+      {"and", TokenType::And},
+      {"class", TokenType::Class},
+      {"else", TokenType::Else},
+      {"false", TokenType::False},
+      {"for", TokenType::For},
+      {"function", TokenType::Function},
+      {"if", TokenType::If},
+      {"nil", TokenType::Nil},
+      {"or", TokenType::Or},
+      {"print", TokenType::Print},
+      {"return", TokenType::Return},
+      {"super", TokenType::Super},
+      {"this", TokenType::This},
+      {"true", TokenType::True},
+      {"var", TokenType::Var},
+      {"while", TokenType::While},
+  };
+  std::unordered_map<char, TokenType> lexemes = {
+      {'(', TokenType::LeftParen},
+      {')', TokenType::RightParen},
+      {'{', TokenType::LeftBrace},
+      {'}', TokenType::False},
+      {',', TokenType::Comma},
+      {'.', TokenType::Dot},
+      {'-', TokenType::Minus},
+      {'+', TokenType::Plus},
+      {';', TokenType::Semicolon},
+      {'/', TokenType::Slash},
+      {'*', TokenType::Star},
+  };
+  std::unordered_map<char, TokenType> maybe_comparisons = {
+      {'=', TokenType::Equal},
+      {'!', TokenType::Bang},
+      {'>', TokenType::Greater},
+      {'<', TokenType::Less},
+  };
+  std::unordered_map<std::string, TokenType> comparisons = {
+      {"==", TokenType::EqualEqual},
+      {"!=", TokenType::BangEqual},
+      {">=", TokenType::GreaterEqual},
+      {"<=", TokenType::LessEqual},
+  };
+  std::vector<char>
+      whitespace = {
+          ' ',
+          '\r',
+          '\t',
+  };
 
 private:
-  bool isAtEnd();
-  void scanToken();
+  void add_token(TokenType);
+  bool is_at_end();
   char advance();
-  void addToken(TokenType type);
-  bool match(char expected);
+  bool match_and_advance(char);
   char peek();
-  char peekNext();
-  bool isDigit(char c);
+  bool is_digit(char);
   void string();
   void number();
-  bool isAlpha(char c);
-  bool isAlphaNumeric(char c);
+  bool is_alpha(char);
+  bool is_alpha_numeric(char);
   void identifier();
-
-  template <typename T>
-  void addToken(TokenType type, T literal);
+  char peek_next();
 };
