@@ -8,8 +8,8 @@
 struct Visitor;
 struct Expr
 {
+  virtual ~Expr() {}
   virtual std::string accept(Visitor *visitor) = 0;
-  virtual ~Expr(){}
 };
 
 struct Binary : public Expr
@@ -28,15 +28,15 @@ struct Unary : public Expr
   std::shared_ptr<Expr> left;
   std::shared_ptr<Token> op;
 
-  Unary(std::shared_ptr<Token> op, std::shared_ptr<Expr> left) : left{left}, op{op}{}
+  Unary(std::shared_ptr<Token> op, std::shared_ptr<Expr> left) : left{left}, op{op} {}
   std::string accept(Visitor *visitor);
 };
 
 struct Literal : public Expr
 {
-  int value;
+  Token value;
 
-  Literal(int value) : value{value}{}
+  Literal(Token value) : value{value} {}
   std::string accept(Visitor *visitor);
 };
 
@@ -44,7 +44,7 @@ struct Grouping : public Expr
 {
   std::shared_ptr<Expr> expr;
 
-  Grouping(std::shared_ptr<Expr> expr) : expr{expr}{}
+  Grouping(std::shared_ptr<Expr> expr) : expr{expr} {}
   std::string accept(Visitor *visitor);
 };
 

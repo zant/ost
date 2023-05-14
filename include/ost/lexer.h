@@ -52,7 +52,7 @@ private:
   void consume_identifier();
   void consume_eof();
   bool is_at_end();
-  char advance();
+  void advance();
   bool match_and_advance(char);
   char peek();
   char peek_next();

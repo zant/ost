@@ -77,7 +77,7 @@ struct Token
 
   std::string to_string()
   {
-    std::string token_string = fmt::format("token: {}\nline: {}\ntype: {}\n", lexeme, std::to_string(line), magic_enum::enum_name(type));
+    std::string token_string = fmt::format("token: {}\nline: {}\ntype: {}\nstart: {}\nend: {}\n", lexeme, std::to_string(line), magic_enum::enum_name(type), start, end);
     return token_string;
   }
 };

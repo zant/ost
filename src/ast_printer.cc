@@ -45,7 +45,7 @@ std::string AstPrinter::visit_binary(Binary *binary)
 
 std::string AstPrinter::visit_literal(Literal *literal)
 {
-  return std::to_string(literal->value);
+  return literal->value.lexeme;
 }
 
 std::string AstPrinter::visit_unary(Unary *unary)

@@ -138,10 +138,9 @@ bool Lexer::is_alpha(char c)
 
 bool Lexer::is_alphanumeric(char c) { return is_alpha(c) || is_digit(c); }
 
-char Lexer::advance()
+void Lexer::advance()
 {
   current++;
-  return source[current - 1];
 }
 
 bool Lexer::match_and_advance(char expected)
