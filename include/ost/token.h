@@ -56,17 +56,25 @@ enum class TokenType
   LEOF,
 };
 
+using TokenLiteral = std::variant<std::string, double>;
+
 struct Token
 {
   TokenType type;
   std::string lexeme;
-  std::variant<std::string, double> literal;
   int line;
+  int start;
+  int end;
+  TokenLiteral literal = {};
 
-  Token(TokenType type, std::string lexeme, std::string literal, int line)
-      : type(type), lexeme(lexeme), literal(literal), line(line) {}
-  Token(TokenType type, std::string lexeme, double literal, int line)
-      : type(type), lexeme(lexeme), literal(literal), line(line) {}
+  Token(TokenType type, std::string lexeme, int line, int start, int end, std::string literal)
+      : type(type), lexeme(lexeme), line(line), start(start), end(end), literal(literal) {}
+  Token(TokenType type, std::string lexeme, int line, int start, int end, double literal)
+      : type(type), lexeme(lexeme), line(line), start(start), end(end), literal(literal) {}
+  Token(TokenType type, std::string lexeme, int line, int start, int end)
+      : type(type), lexeme(lexeme), line(line), start(start), end(end) {}
+  Token() {}
+
   std::string to_string()
   {
     std::string token_string = fmt::format("token: {}\nline: {}\ntype: {}\n", lexeme, std::to_string(line), magic_enum::enum_name(type));

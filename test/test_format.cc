@@ -3,7 +3,7 @@
 
 TEST_CASE("Returns formatted", "[formated]")
 {
-    std::shared_ptr<Token> t{new Token{TokenType::Star, "*", "", 1}};
+    std::shared_ptr<Token> t{new Token{TokenType::Star, "*", 1, 0, 1}};
     std::shared_ptr<Literal> l{new Literal{1}};
     std::shared_ptr<Literal> l2{new Literal{2}};
     std::shared_ptr<Binary> sb{new Binary{l, t, l}};

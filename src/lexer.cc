@@ -5,14 +5,110 @@
 #include <fmt/core.h>
 #include <algorithm>
 
-bool Lexer::is_at_end() { return static_cast<size_t>(current) >= source.length(); }
+template <typename T>
+void Lexer::add_token(TokenType type, T literal) { tokens.push_back(Token{type, std::string(&source[start], &source[current]), 0, start, current, literal}); }
 
-bool Lexer::is_digit(char c) { return (c >= '0' && c <= '9') ? true : false; }
+void Lexer::add_token(TokenType type) { tokens.push_back(Token{type, std::string(&source[start], &source[current]), 0, start, current}); }
 
-void Lexer::add_token(TokenType type)
+void Lexer::consume_token(TokenType type)
 {
   advance();
-  tokens.push_back(Token{type, std::string(&source[start], &source[current]), "", 0});
+  add_token(type);
+}
+
+template <typename T>
+void Lexer::consume_token(TokenType type, T literal)
+{
+  advance();
+  add_token(type, literal);
+}
+
+void Lexer::scan_token(char c)
+{
+  switch (c)
+  {
+  case '(':
+    consume_token(TokenType::LeftParen);
+    break;
+  case ')':
+    consume_token(TokenType::RightBrace);
+    break;
+  case '{':
+    consume_token(TokenType::LeftBrace);
+    break;
+  case '}':
+    consume_token(TokenType::RightBrace);
+    break;
+  case ',':
+    consume_token(TokenType::Comma);
+    break;
+  case '.':
+    consume_token(TokenType::Dot);
+    break;
+  case '-':
+    consume_token(TokenType::Minus);
+    break;
+  case '+':
+    consume_token(TokenType::Plus);
+    break;
+  case ';':
+    consume_token(TokenType::Semicolon);
+    break;
+  case '*':
+    consume_token(TokenType::Star);
+    break;
+  case '!':
+    consume_token(match_and_advance('=') ? TokenType::BangEqual : TokenType::Bang);
+    break;
+  case '=':
+    consume_token(match_and_advance('=') ? TokenType::EqualEqual : TokenType::Equal);
+    break;
+  case '<':
+    consume_token(match_and_advance('=') ? TokenType::LessEqual : TokenType::Less);
+    break;
+  case '>':
+    consume_token(match_and_advance('=') ? TokenType::GreaterEqual : TokenType::Greater);
+    break;
+  case '/':
+    if (match_and_advance('/'))
+    {
+      while (peek() != '\n' && !is_at_end())
+        advance();
+    }
+    else
+    {
+      consume_token(TokenType::Slash);
+    }
+    break;
+  case ' ':
+  case '\r':
+  case '\t':
+    advance();
+    break;
+  case '\n':
+    line++;
+    advance();
+    break;
+  case '"':
+    consume_string();
+    break;
+  default:
+    if (is_digit(source[current]))
+    {
+      consume_number();
+    }
+    else if (is_alpha(source[current]))
+    {
+      consume_identifier();
+    }
+    else
+    {
+      advance();
+      Ost::report(line, " [column " + std::to_string(current - 1) + "]",
+                  "Unexpected charater.");
+    }
+    break;
+  }
 }
 
 std::vector<Token> Lexer::scan_tokens()
@@ -20,102 +116,27 @@ std::vector<Token> Lexer::scan_tokens()
   while (!is_at_end())
   {
     start = current;
-    switch (source[current])
-    {
-    case '(':
-      add_token(TokenType::LeftParen);
-      break;
-    case ')':
-      add_token(TokenType::RightBrace);
-      break;
-    case '{':
-      add_token(TokenType::LeftBrace);
-      break;
-    case '}':
-      add_token(TokenType::RightBrace);
-      break;
-    case ',':
-      add_token(TokenType::Comma);
-      break;
-    case '.':
-      add_token(TokenType::Dot);
-      break;
-    case '-':
-      add_token(TokenType::Minus);
-      break;
-    case '+':
-      add_token(TokenType::Plus);
-      break;
-    case ';':
-      add_token(TokenType::Semicolon);
-      break;
-    case '*':
-      add_token(TokenType::Star);
-      break;
-    case '!':
-      add_token(match_and_advance('=') ? TokenType::BangEqual : TokenType::Bang);
-      break;
-    case '=':
-      add_token(match_and_advance('=') ? TokenType::EqualEqual : TokenType::Equal);
-      break;
-    case '<':
-      add_token(match_and_advance('=') ? TokenType::LessEqual : TokenType::Less);
-      break;
-    case '>':
-      add_token(match_and_advance('=') ? TokenType::GreaterEqual : TokenType::Greater);
-      break;
-    case '/':
-      if (match_and_advance('/'))
-      {
-        while (peek() != '\n' && !is_at_end())
-          advance();
-      }
-      else
-      {
-        add_token(TokenType::Slash);
-      }
-      break;
-    case ' ':
-    case '\r':
-    case '\t':
-      advance();
-      break;
-    case '\n':
-      line++;
-      advance();
-      break;
-    case '"':
-      string();
-      break;
-    default:
-      if (is_digit(source[current]))
-      {
-        add_token(TokenType::Number);
-      }
-      else if (is_alpha(source[current]))
-      {
-        identifier();
-      }
-      else
-      {
-        advance();
-        fmt::println("{}", source.substr(start, current));
-        Ost::report(line, " [column " + std::to_string(current - 1) + "]",
-                    "Unexpected charater.");
-      }
-      break;
-    }
+    scan_token(source[current]);
   };
-  tokens.push_back(Token(TokenType::LEOF, "", "", line));
+  consume_eof();
   return tokens;
 }
+
+void Lexer::consume_eof() {
+  start = current;
+  consume_token(TokenType::LEOF);
+}
+
+bool Lexer::is_at_end() { return static_cast<size_t>(current) >= source.length(); }
+
+bool Lexer::is_digit(char c) { return (c >= '0' && c <= '9') ? true : false; }
 
 bool Lexer::is_alpha(char c)
 {
   return (c >= 'a' && c <= 'z') || (c >= 'A' && c <= 'Z') || c == '_';
 }
 
-bool Lexer::is_alpha_numeric(char c) { return is_alpha(c) || is_digit(c); }
+bool Lexer::is_alphanumeric(char c) { return is_alpha(c) || is_digit(c); }
 
 char Lexer::advance()
 {
@@ -129,7 +150,8 @@ bool Lexer::match_and_advance(char expected)
     return false;
   if (source[current + 1] != expected)
     return false;
-  current++;
+
+  advance();
   return true;
 }
 
@@ -147,8 +169,10 @@ char Lexer::peek_next()
   return source[current + 1];
 }
 
-void Lexer::string()
+void Lexer::consume_string()
 {
+  // Start quote
+  advance();
   while (peek() != '"' && !is_at_end())
   {
     if (peek() == '\n')
@@ -160,13 +184,14 @@ void Lexer::string()
     Ost::error(line, "Unterminated string");
     return;
   }
+  // End quote
   advance();
 
-  // std::string value = source.substr(start + 1, current - 1);
-  add_token(TokenType::String);
+  std::string value = std::string(&source[start + 1], &source[current - 1]);
+  add_token(TokenType::String, value);
 }
 
-void Lexer::number()
+void Lexer::consume_number()
 {
   while (is_digit(peek()))
     advance();
@@ -178,22 +203,13 @@ void Lexer::number()
       advance();
   }
 
-  // double value = std::stod(source.substr(start, current));
-  // add_token(TokenType::Number, value);
+  double value = std::stod(std::string(&source[start], &source[current]));
+  add_token(TokenType::Number, value);
 }
 
-// void Lexer::add_token(TokenType type) { add_token(type, ""); }
-
-// template <typename T>
-// void Lexer::add_token(TokenType type, T literal)
-// {
-//   std::string text = source.substr(start, current);
-//   tokens.push_back(Token(type, text, literal, line));
-// }
-
-void Lexer::identifier()
+void Lexer::consume_identifier()
 {
-  while (is_alpha_numeric(peek()))
+  while (is_alphanumeric(peek()))
     advance();
 
   std::string text = source.substr(start, current);

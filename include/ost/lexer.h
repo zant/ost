@@ -10,7 +10,9 @@ struct Lexer
   Lexer(std::string source) : source(source) {}
   ~Lexer() {}
   std::vector<Token> scan_tokens();
-  // std::vector<Token> scanTokens();
+  static bool is_digit(char);
+  static bool is_alpha(char);
+  static bool is_alphanumeric(char);
 
 private:
   std::string source;
@@ -36,49 +38,22 @@ private:
       {"var", TokenType::Var},
       {"while", TokenType::While},
   };
-  std::unordered_map<char, TokenType> lexemes = {
-      {'(', TokenType::LeftParen},
-      {')', TokenType::RightParen},
-      {'{', TokenType::LeftBrace},
-      {'}', TokenType::False},
-      {',', TokenType::Comma},
-      {'.', TokenType::Dot},
-      {'-', TokenType::Minus},
-      {'+', TokenType::Plus},
-      {';', TokenType::Semicolon},
-      {'/', TokenType::Slash},
-      {'*', TokenType::Star},
-  };
-  std::unordered_map<char, TokenType> maybe_comparisons = {
-      {'=', TokenType::Equal},
-      {'!', TokenType::Bang},
-      {'>', TokenType::Greater},
-      {'<', TokenType::Less},
-  };
-  std::unordered_map<std::string, TokenType> comparisons = {
-      {"==", TokenType::EqualEqual},
-      {"!=", TokenType::BangEqual},
-      {">=", TokenType::GreaterEqual},
-      {"<=", TokenType::LessEqual},
-  };
-  std::vector<char>
-      whitespace = {
-          ' ',
-          '\r',
-          '\t',
-  };
 
 private:
+  void scan_token(char c);
   void add_token(TokenType);
+  template <typename T>
+  void add_token(TokenType, T);
+  void consume_token(TokenType);
+  template <typename T>
+  void consume_token(TokenType, T);
+  void consume_string();
+  void consume_number();
+  void consume_identifier();
+  void consume_eof();
   bool is_at_end();
   char advance();
   bool match_and_advance(char);
   char peek();
-  bool is_digit(char);
-  void string();
-  void number();
-  bool is_alpha(char);
-  bool is_alpha_numeric(char);
-  void identifier();
   char peek_next();
 };
